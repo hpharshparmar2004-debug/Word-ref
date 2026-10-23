@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MS Word Tabs &amp; Shortcuts — CBT Examination Portal</title>
+    <style>
+        :root {
+            --primary-blue: #0f172a;
+            --secondary-blue: #2563eb;
+            --light-blue: #eff6ff;
+            --border-color: #cbd5e1;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --success-green: #16a34a;
+            --warning-red: #dc2626;
+            --review-purple: #9333ea;
+            --not-visited: #94a3b8;
+            --bg-color: #f8fafc;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+        }
+
+        .screen {
+            display: none;
+            width: 100%;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        .screen.active {
+            display: flex !important;
+        }
+
+        #login-screen {
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+            padding: 20px;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.98);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 420px;
+        }
+
+        .login-card h2 {
+            color: var(--primary-blue);
+            margin-bottom: 8px;
+            font-size: 22px;
+            text-align: center;
+        }
+
+        .login-card p {
+            color: var(--text-light);
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text-dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 38px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-light);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--secondary-blue);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn:hover {
+            background-color: #1d4ed8;
+        }
+
+        .error-msg {
+            color: var(--warning-red);
+            font-size: 13px;
+            text-align: center;
+            margin-top: 12px;
+            display: none;
+        }
+
+        .demo-credentials {
+            margin-top: 20px;
+            padding: 12px;
+            background: var(--light-blue);
+            border-radius: 8px;
+            font-size: 12px;
+            color: var(--primary-blue);
+            line-height: 1.5;
+        }
+
+        #instructions-screen {
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-y: auto;
+            background: var(--bg-color);
+        }
+
+        .instruction-card {
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+            margin: auto;
+        }
+
+        .instruction-card h2 {
+            color: var(--primary-blue);
+            margin-bottom: 5px;
+        }
+
+        .instruction-card h4 {
+            color: var(--text-light);
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .exam-details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+            background: var(--light-blue);
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .instruction-rules {
+            margin-bottom: 25px;
+            max-height: 220px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .instruction-rules ul {
+            padding-left: 20px;
+            font-size: 14px;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .instruction-rules li {
+            margin-bottom: 8px;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        #exam-screen {
+            height: 100vh;
+            overflow: hidden;
+            flex-direction: column;
+        }
+
+        .fullscreen-bar {
+            background: #0f172a;
+            color: white;
+            font-size: 12px;
+            padding: 4px 15px;
+            text-align: right;
+            flex-shrink: 0;
+        }
+        .fullscreen-bar button {
+            background: none; border: none; color: #93c5fd; cursor: pointer; text-decoration: underline; font-size: 12px;
+        }
+
+        .exam-header {
+            background: var(--primary-blue);
+            color: white;
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            flex-shrink: 0;
+        }
+
+        .exam-header h3 {
+            font-size: 18px;
+        }
+
+        .timer-badge {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        .exam-body {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .question-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            overflow-y: auto;
+            background: white;
+        }
+
+        .question-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            font-size: 14px;
+            color: var(--text-light);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+        }
+
+        .question-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            padding: 14px 18px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 15px;
+        }
+
+        .option-item:hover {
+            border-color: var(--secondary-blue);
+            background-color: var(--light-blue);
+        }
+
+        .option-item input {
+            margin-right: 14px;
+            transform: scale(1.2);
+            accent-color: var(--secondary-blue);
+        }
+
+        .option-item.selected {
+            border-color: var(--secondary-blue);
+            background-color: var(--light-blue);
+            font-weight: 500;
+        }
+
+        .exam-footer-controls {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .btn-group-left, .btn-group-right {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn-action {
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+            background: white;
+            color: var(--text-dark);
+            transition: all 0.2s;
+        }
+
+        .btn-action:hover {
+            background: #f1f5f9;
+        }
+
+        .btn-primary-action {
+            background: var(--secondary-blue);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary-action:hover {
+            background: #1d4ed8;
+        }
+
+        aside.palette-sidebar {
+            width: 320px;
+            background: #f8fafc;
+            border-left: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            flex-shrink: 0;
+        }
+
+        .palette-header {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+
+        .palette-legend {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 15px;
+            font-size: 0.85rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+        }
+
+        .palette-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            overflow-y: auto;
+            flex: 1;
+            padding-right: 4px;
+            max-height: calc(100vh - 280px);
+        }
+
+        .palette-btn {
+            aspect-ratio: 1;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: white;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .palette-btn.current {
+            border: 2px solid var(--secondary-blue);
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+        }
+
+        .palette-btn.not-visited { background: #ffffff; color: var(--not-visited); border-color: var(--not-visited); }
+        .palette-btn.visited-not-answered { background: #fee2e2; color: var(--warning-red); border-color: #fca5a5; }
+        .palette-btn.answered { background: #dcfce7; color: var(--success-green); border-color: #86efac; }
+        .palette-btn.marked { background: #f3e8ff; color: var(--review-purple); border-color: #d8b4fe; }
+        .palette-btn.answered-marked { background: linear-gradient(135deg, #dcfce7 50%, #f3e8ff 50%); color: var(--primary-blue); border-color: var(--review-purple); }
+
+        .submit-exam-btn {
+            margin-top: 15px;
+            background: var(--success-green);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+        }
+        .submit-exam-btn:hover { background: #15803d; }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .modal-card h3 { margin-bottom: 15px; color: var(--primary-blue); }
+        .modal-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        .modal-stats div {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 10px;
+            background: var(--light-blue);
+            border-radius: 6px;
+        }
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        #result-screen {
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .result-card {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            max-width: 650px;
+            width: 100%;
+            text-align: center;
+            margin: auto;
+        }
+
+        .result-card h2 { color: var(--primary-blue); margin-bottom: 6px; }
+        .score-circle {
+            width: 120px; height: 120px;
+            border-radius: 50%;
+            background: var(--light-blue);
+            color: var(--secondary-blue);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 20px auto;
+            font-size: 28px;
+            font-weight: 700;
+            border: 4px solid var(--secondary-blue);
+        }
+        .score-circle span { font-size: 13px; font-weight: 500; color: var(--text-light); }
+        
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+        .result-item {
+            background: #f8fafc;
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            font-size: 14px;
+        }
+        .result-item span { font-weight: 700; float: right; }
+
+        @media(max-width: 768px) {
+            .exam-body { flex-direction: column-reverse; overflow-y: auto; }
+            aside.palette-sidebar { width: 100%; height: 240px; }
+            .palette-grid { max-height: 120px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LOGIN SCREEN -->
+    <div id="login-screen" class="screen active">
+        <div class="login-card">
+            <h2>CBT Examination Portal</h2>
+            <p>MS Word Tabs (Home, Insert, Page Layout, References) &amp; Shortcuts</p>
+            <form id="login-form" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="username">Candidate Username</label>
+                    <input type="text" id="username" class="form-control" placeholder="Enter username (e.g. admin100)" required autocomplete="username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control" placeholder="Enter password" required autocomplete="current-password">
+                    <button type="button" class="toggle-password" onclick="togglePasswordVisibility()">Show</button>
+                </div>
+                <button type="submit" class="btn">Proceed to Instructions</button>
+                <div id="login-error" class="error-msg">Invalid username or password. Please try again.</div>
+            </form>
+            <div class="demo-credentials">
+                <strong>Demo Credentials:</strong><br>
+                Candidate 1: Username: <code>admin100</code> | Password: <code>100</code><br>
+                Candidate 2: Username: <code>admin101</code> | Password: <code>101</code>
+            </div>
+        </div>
+    </div>
+
+    <!-- INSTRUCTIONS SCREEN -->
+    <div id="instructions-screen" class="screen">
+        <div class="instruction-card">
+            <h2>Examination Instructions</h2>
+            <h4>MS Word Tabs &amp; Shortcuts Mastery (100 Questions - Bilingual)</h4>
+            
+            <div class="exam-details-grid">
+                <div><strong>Test Scope:</strong> Home, Insert, Page Layout, References Tabs &amp; Shortcuts</div>
+                <div><strong>Total Questions:</strong> 100 MCQs</div>
+                <div><strong>Duration:</strong> 60 Minutes</div>
+                <div><strong>Maximum Marks:</strong> 100</div>
+                <div><strong>Question Type:</strong> Single-correct MCQ</div>
+                <div><strong>Negative Marking:</strong> None</div>
+            </div>
+
+            <div class="instruction-rules">
+                <ul>
+                    <li>The clock has been set at the server and the countdown timer at the top right corner of your screen will display remaining time.</li>
+                    <li>The question palette on the right side indicates status: Not Visited, Visited but Not Answered, Answered, Marked for Review.</li>
+                    <li>Click on any question number in the palette to navigate to it instantly.</li>
+                    <li>Select options by clicking radio buttons or option cards.</li>
+                    <li>Use <strong>Save &amp; Next</strong> or <strong>Mark for Review &amp; Next</strong> to record responses.</li>
+                    <li>The examination submits automatically when the timer reaches zero.</li>
+                </ul>
+            </div>
+
+            <label class="checkbox-container">
+                <input type="checkbox" id="accept-instructions" onchange="toggleStartExamBtn()">
+                I have read and understood all instructions. All computer hardware is in proper working condition.
+            </label>
+
+            <button type="button" id="start-exam-btn" class="btn" disabled style="opacity: 0.6; cursor: not-allowed;" onclick="startExamination()">Start Examination</button>
+        </div>
+    </div>
+
+    <!-- CBT EXAMINATION SCREEN -->
+    <div id="exam-screen" class="screen">
+        <div class="fullscreen-bar">
+            <span>Candidate ID: <strong id="display-candidate">admin</strong></span>
+            <span style="margin-left: 20px;">Mode: CBT Assessment</span>
+            <span style="float: right;"><button onclick="toggleFullscreen()">Toggle Fullscreen</button></span>
+        </div>
+        <div class="exam-header">
+            <h3>MS WORD TABS &amp; SHORTCUTS PRACTICE SET</h3>
+            <div class="timer-badge" id="timer-display">60:00</div>
+        </div>
+        <div class="exam-body">
+            <div class="question-container">
+                <div class="question-meta">
+                    <span id="question-number-tag">Question 1 of 100</span>
+                    <span>Marks: +1.0 | Negative: 0.0</span>
+                </div>
+                <div class="question-text" id="question-title-text">
+                    Loading question...
+                </div>
+                <div class="options-list" id="options-container"></div>
+                <div class="exam-footer-controls">
+                    <div class="btn-group-left">
+                        <button class="btn-action" onclick="markForReviewAndNext()">Mark for Review &amp; Next</button>
+                        <button class="btn-action" onclick="clearResponse()">Clear Response</button>
+                    </div>
+                    <div class="btn-group-right">
+                        <button class="btn-action" onclick="previousQuestion()">Previous</button>
+                        <button class="btn-action btn-primary-action" onclick="saveAndNext()">Save &amp; Next</button>
+                    </div>
+                </div>
+            </div>
+
+            <aside class="palette-sidebar">
+                <div class="palette-header">Question Palette</div>
+                <div class="palette-legend">
+                    <div class="legend-item"><div class="legend-dot" style="background:#ffffff; border:1px solid #94a3b8;"></div><span>Not Visited</span></div>
+                    <div class="legend-item"><div class="legend-dot" style="background:#fee2e2; border:1px solid #fca5a5;"></div><span>Not Answered</span></div>
+                    <div class="legend-item"><div class="legend-dot" style="background:#dcfce7; border:1px solid #86efac;"></div><span>Answered</span></div>
+                    <div class="legend-item"><div class="legend-dot" style="background:#f3e8ff; border:1px solid #d8b4fe;"></div><span>Marked</span></div>
+                </div>
+                <div class="palette-grid" id="palette-grid"></div>
+                <button class="submit-exam-btn" onclick="openSubmitModal()">Submit Examination</button>
+            </aside>
+        </div>
+    </div>
+
+    <!-- SUBMISSION CONFIRMATION MODAL -->
+    <div id="submit-modal" class="modal-overlay">
+        <div class="modal-card">
+            <h3>Confirm Examination Submission</h3>
+            <p style="margin-bottom: 15px; font-size: 14px; color: var(--text-light);">Please review your examination summary before final submission:</p>
+            <div class="modal-stats" id="modal-stats-box"></div>
+            <div class="modal-buttons">
+                <button class="btn-action" style="flex:1;" onclick="closeSubmitModal()">Cancel / Return</button>
+                <button class="btn-action btn-primary-action" style="flex:1; background: var(--success-green);" onclick="confirmFinalSubmission()">Submit Final Answer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- RESULT SCREEN -->
+    <div id="result-screen" class="screen">
+        <div class="result-card">
+            <h2>Examination Completed Successfully</h2>
+            <p style="color: var(--text-light); margin-bottom: 15px;">MS Word Tabs &amp; Shortcuts Assessment</p>
+            
+            <div class="score-circle">
+                <div id="score-val">0</div>
+                <span>Out of 100</span>
+            </div>
+
+            <div class="result-grid">
+                <div class="result-item">Percentage: <span id="res-percentage">0%</span></div>
+                <div class="result-item">Attempted: <span id="res-attempted">0</span></div>
+                <div class="result-item">Correct Answers: <span id="res-correct">0</span></div>
+                <div class="result-item">Incorrect Answers: <span id="res-incorrect">0</span></div>
+                <div class="result-item" style="grid-column: span 2;">Unattempted Questions: <span id="res-unattempted">100</span></div>
+            </div>
+
+            <p id="performance-remark" style="font-weight: 600; color: var(--secondary-blue); margin-bottom: 20px;"></p>
+            <button class="btn" onclick="restartPortal()">Log Out / Restart Examination</button>
+        </div>
+    </div>
+
+    <script>
+        // 100 Bilingual Questions covering MS Word Home, Insert, Page Layout, References tabs and shortcut keys
+        const rawQuestionBank = [
+            // HOME TAB (1 - 25)
+            { id: 1, question: "MS Word में टेक्स्ट को बोल्ड (Bold) करने की शॉर्टकट कुंजी क्या है? / What is the shortcut key to Bold text in MS Word?", options: ["Ctrl + B", "Ctrl + I", "Ctrl + U", "Ctrl + A"], answer: 0 },
+            { id: 2, question: "MS Word में टेक्स्ट को इटैलिक (Italic) करने की शॉर्टकट कुंजी क्या है? / What is the shortcut key for Italic in MS Word?", options: ["Ctrl + B", "Ctrl + I", "Ctrl + U", "Ctrl + T"], answer: 1 },
+            { id: 3, question: "चुने हुए टेक्स्ट के नीचे अंडरलाइन (Underline) करने की शॉर्टकट कुंजी क्या है? / What is the shortcut key to Underline text?", options: ["Ctrl + L", "Ctrl + E", "Ctrl + U", "Ctrl + N"], answer: 2 },
+            { id: 4, question: "MS Word में किसी टेक्स्ट को कॉपी (Copy) करने की शॉर्टकट कुंजी क्या है? / What is the shortcut key to Copy text?", options: ["Ctrl + C", "Ctrl + V", "Ctrl + X", "Ctrl + P"], answer: 0 },
+            { id: 5, question: "कॉपी किए गए टेक्स्ट को पेस्ट (Paste) करने की शॉर्टकट कुंजी क्या है? / What is the shortcut key to Paste text?", options: ["Ctrl + C", "Ctrl + V", "Ctrl + X", "Ctrl + Z"], answer: 1 },
+            { id: 6, question: "टेक्स्ट को कट (Cut) करने की शॉर्टकट कुंजी क्या है? / What is the shortcut key to Cut text?", options: ["Ctrl + C", "Ctrl + V", "Ctrl + X", "Ctrl + A"], answer: 2 },
+            { id: 7, question: "पिछली कार्रवाई को पूर्ववत (Undo) करने के लिए कौन सी शॉर्टकट कुंजी प्रयोग होती है? / What is the shortcut key for Undo?", options: ["Ctrl + Y", "Ctrl + Z", "Ctrl + X", "Ctrl + S"], answer: 1 },
+            { id: 8, question: "पूर्ववत कार्रवाई को पुनः करने (Redo) की शॉर्टकट कुंजी क्या है? / What is the shortcut key for Redo?", options: ["Ctrl + Y", "Ctrl + Z", "Ctrl + R", "Ctrl + D"], answer: 0 },
+            { id: 9, question: "टेक्स्ट को लेफ्ट अलाइन (Left Align) करने की शॉर्टकट कुंजी क्या है? / What is the shortcut key for Left Align?", options: ["Ctrl + L", "Ctrl + R", "Ctrl + E", "Ctrl + J"], answer: 0 },
+            { id: 10, question: "टेक्स्ट को सेंटर अलाइन (Center Align) करने की शॉर्टकट कुंजी क्या है? / What is the shortcut key for Center Align?", options: ["Ctrl + L", "Ctrl + E", "Ctrl + R", "Ctrl + C"], answer: 1 },
+            { id: 11, question: "टेक्स्ट को राइट अलाइन (Right Align) करने की शॉर्टकट कुंजी क्या है? / What is the shortcut key for Right Align?", options: ["Ctrl + L", "Ctrl + E", "Ctrl + R", "Ctrl + J"], answer: 2 },
+            { id: 12, question: "टेक्स्ट को जस्टिफ़ाई (Justify) करने की शॉर्टकट कुंजी क्या है? / What is the shortcut key for Justify alignment?", options: ["Ctrl + J", "Ctrl + T", "Ctrl + G", "Ctrl + K"], answer: 0 },
+            { id: 13, question: "डॉक्यूमेंट में किसी शब्द को खोजने (Find) के लिए शॉर्टकट कुंजी क्या है? / What is the shortcut key for Find?", options: ["Ctrl + H", "Ctrl + F", "Ctrl + G", "Ctrl + S"], answer: 1 },
+            { id: 14, question: "डॉक्यूमेंट में शब्द को बदलने (Replace) के लिए शॉर्टकट कुंजी क्या है? / What is the shortcut key for Replace?", options: ["Ctrl + F", "Ctrl + H", "Ctrl + R", "Ctrl + P"], answer: 1 },
+            { id: 15, question: "डॉक्यूमेंट में किसी विशिष्ट पेज पर जाने (Go To) की शॉर्टकट कुंजी क्या है? / What is the shortcut key for Go To?", options: ["Ctrl + G", "Ctrl + T", "Ctrl + L", "Ctrl + M"], answer: 0 },
+            { id: 16, question: "फ़ॉन्ट साइज़ बढ़ाने (Grow Font) के लिए शॉर्टकट कुंजी क्या है? / What is the shortcut key to increase font size?", options: ["Ctrl + ]", "Ctrl + [", "Ctrl + Shift + >", "Both A and C"], answer: 3 },
+            { id: 17, question: "फ़ॉन्ट साइज़ घटाने (Shrink Font) के लिए शॉर्टकट कुंजी क्या है? / What is the shortcut key to decrease font size?", options: ["Ctrl + ]", "Ctrl + [", "Ctrl + Shift + <", "Both B and C"], answer: 3 },
+            { id: 18, question: "फ़ॉर्मेट पेंटर (Format Painter) का उपयोग करने की शॉर्टकट कुंजी क्या है? / What is the shortcut key for Format Painter?", options: ["Ctrl + Shift + C", "Ctrl + Alt + C", "Ctrl + Shift + V", "Ctrl + F1"], answer: 0 },
+            { id: 19, question: "सबस्क्रिप्ट (Subscript) लागू करने की शॉर्टकट कुंजी क्या है? / What is the shortcut key for Subscript?", options: ["Ctrl + =", "Ctrl + Shift + +", "Ctrl + -", "Ctrl + Shift + -"], answer: 0 },
+            { id: 20, question: "सुपरस्क्रिप्ट (Superscript) लागू करने की शॉर्टकट कुंजी क्या है? / What is the shortcut key for Superscript?", options: ["Ctrl + =", "Ctrl + Shift + +", "Ctrl + ^", "Ctrl + *"], answer: 1 },
+            { id: 21, question: "चेंज केस (Change Case) टॉगल करने की शॉर्टकट कुंजी क्या है? / What is the shortcut key for Change Case?", options: ["Shift + F3", "Ctrl + F3", "Alt + F3", "F3"], answer: 0 },
+            { id: 22, question: "सभी फ़ॉर्मेटिंग साफ़ करने (Clear All Formatting) का विकल्प होम टैब के किस ग्रुप में होता है? / In which Home tab group is 'Clear All Formatting' found?", options: ["Clipboard", "Font", "Paragraph", "Editing"], answer: 1 },
+            { id: 23, question: "1.5 लाइन स्पेसिंग (Line Spacing) सेट करने की शॉर्टकट कुंजी क्या है? / What is the shortcut key for 1.5 line spacing?", options: ["Ctrl + 1", "Ctrl + 2", "Ctrl + 5", "Ctrl + 0"], answer: 2 },
+            { id: 24, question: "डबल लाइन स्पेसिंग (Double Line Spacing) की शॉर्टकट कुंजी क्या है? / What is the shortcut key for double line spacing?", options: ["Ctrl + 2", "Ctrl + 1", "Ctrl + 5", "Ctrl + D"], answer: 0 },
+            { id: 25, question: "पूरे डॉक्यूमेन्ट को एक साथ चुनने (Select All) की शॉर्टकट कुंजी क्या है? / What is the shortcut key to Select All?", options: ["Ctrl + S", "Ctrl + A", "Ctrl + Alt + A", "Shift + A"], answer: 1 },
+
+            // INSERT TAB (26 - 50)
+            { id: 26, question: "डॉक्यूमेंट में पेज ब्रेक (Page Break) डालने की शॉर्टकट कुंजी क्या है? / What is the shortcut key to insert a Page Break?", options: ["Ctrl + Enter", "Shift + Enter", "Alt + Enter", "Ctrl + Shift + Enter"], answer: 0 },
+            { id: 27, question: "हाइपरलिंक (Hyperlink) इंसर्ट करने की शॉर्टकट कुंजी क्या है? / What is the shortcut key to insert a Hyperlink?", options: ["Ctrl + H", "Ctrl + L", "Ctrl + K", "Ctrl + N"], answer: 2 },
+            { id: 28, question: "कमेंट (Comment) इंसर्ट करने की शॉर्टकट कुंजी क्या है? / What is the shortcut key to insert a Comment in MS Word?", options: ["Ctrl + Alt + M", "Ctrl + Shift + C", "Alt + C", "Ctrl + M"], answer: 0 },
+            { id: 29, question: "इंसर्ट टैब (Insert Tab) में इनमें से कौन सा विकल्प नहीं मिलता है? / Which option is NOT found in the Insert Tab?", options: ["Table", "Pictures", "Line Spacing", "Header & Footer"], answer: 2 },
+            { id: 30, question: "डॉक्यूमेंट में कवर पेज (Cover Page) जोड़ने का विकल्प किस टैब में होता है? / Cover Page option is located in which tab?", options: ["Home", "Insert", "Page Layout", "References"], answer: 1 },
+            { id: 31, question: "टेबल (Table) इंसर्ट करने का विकल्प किस टैब के अंतर्गत आता है? / The Table insertion option comes under which tab?", options: ["Insert Tab", "Home Tab", "View Tab", "References Tab"], answer: 0 },
+            { id: 32, question: "डॉक्यूमेंट में पिक्चर (Picture) या शेप (Shapes) जोड़ने के लिए किस टैब का प्रयोग होता है?", options: ["Home", "Insert", "Page Layout", "Review"], answer: 1 },
+            { id: 33, question: "हेडर और फुटर (Header and Footer) जोड़ने का कमांड किस टैब में होता है?", options: ["Insert Tab", "Home Tab", "Design Tab", "View Tab"], answer: 0 },
+            { id: 34, question: "पेज नंबर (Page Number) इंसर्ट करने का विकल्प कहाँ मिलता है?", options: ["Insert Tab", "Home Tab", "Page Layout Tab", "References Tab"], answer: 0 },
+            { id: 35, question: "टेक्स्ट बॉक्स (Text Box) जोड़ने का विकल्प किस टैब में होता है?", options: ["Insert Tab", "Home Tab", "References Tab", "Mailings Tab"], answer: 0 },
+            { id: 36, question: "वर्डआर्ट (WordArt) का विकल्प किस टैब में मौजूद होता है?", options: ["Insert Tab", "Home Tab", "Page Layout Tab", "View Tab"], answer: 0 },
+            { id: 37, question: "पैराग्राफ के पहले अक्षर को बड़ा दिखाने के लिए 'ड्रॉप कैप' (Drop Cap) किस टैब में होता है?", options: ["Insert Tab", "Home Tab", "Page Layout Tab", "References Tab"], answer: 0 },
+            { id: 38, question: "गणितीय समीकरण (Equation) और सिंबल (Symbol) इंसर्ट करने का विकल्प किस टैब में होता है?", options: ["Insert Tab", "Home Tab", "Page Layout Tab", "View Tab"], answer: 0 },
+            { id: 39, question: "ऑनलाइन पिक्चर (Online Pictures) या स्क्रीनशॉट (Screenshot) जोड़ने का विकल्प कहाँ होता है?", options: ["Insert Tab", "Home Tab", "Page Layout Tab", "References Tab"], answer: 0 },
+            { id: 40, question: "सिग्नेचर लाइन (Signature Line) जोड़ने का विकल्प किस ग्रुप में होता है?", options: ["Text group in Insert Tab", "Illustrations group", "Header & Footer group", "Symbols group"], answer: 0 },
+            { id: 41, question: "बुकमार्क (Bookmark) जोड़ने का विकल्प किस टैब में मिलता है?", options: ["Insert Tab", "Home Tab", "References Tab", "View Tab"], answer: 0 },
+            { id: 42, question: "क्रॉस-रेफरेंस (Cross-reference) इंसर्ट करने का विकल्प किस टैब में होता है?", options: ["Insert Tab and References Tab", "Home Tab only", "Page Layout Tab", "Review Tab"], answer: 0 },
+            { id: 43, question: "स्मार्टआर्ट (SmartArt) ग्राफिक्स इंसर्ट करने का विकल्प किस टैब में होता है?", options: ["Insert Tab", "Home Tab", "Page Layout Tab", "References Tab"], answer: 0 },
+            { id: 44, question: "चार्ट (Chart) इंसर्ट करने की सुविधा किस टैब में दी जाती है?", options: ["Insert Tab", "Home Tab", "Page Layout Tab", "View Tab"], answer: 0 },
+            { id: 45, question: "ब्लैंक पेज (Blank Page) जोड़ने का बटन किस टैब में होता है?", options: ["Insert Tab", "Home Tab", "Page Layout Tab", "References Tab"], answer: 0 },
+            { id: 46, question: "ऑब्जेक्ट (Object) जैसे दूसरे प्रोग्राम की फ़ाइलें एम्बेड करने का विकल्प किस टैब में होता है?", options: ["Insert Tab", "Home Tab", "References Tab", "Review Tab"], answer: 0 },
+            { id: 47, question: "डेट और टाइम (Date and Time) इंसर्ट करने का विकल्प किस ग्रुप में होता है?", options: ["Text group in Insert Tab", "Symbols group", "Header group", "Links group"], answer: 0 },
+            { id: 48, question: "डॉक्यूमेंट में हाइपरलिंक हटाने के लिए शॉर्टकट कुंजी क्या है? (या राइट क्लिक विकल्प)", options: ["Ctrl + Shift + F9", "Ctrl + K", "Ctrl + Shift + K", "Alt + Link"], answer: 0 },
+            { id: 49, question: "इंसर्ट टैब के 'Illustrations' ग्रुप में क्या शामिल नहीं है?", options: ["Table", "Pictures", "Shapes", "Icons"], answer: 0 },
+            { id: 50, question: "वीडियो या मीडिया फाइलें जोड़ने का विकल्प आधुनिक MS Word में किस टैब में होता है?", options: ["Insert Tab", "Home Tab", "Page Layout Tab", "View Tab"], answer: 0 },
+
+            // PAGE LAYOUT / LAYOUT TAB (51 - 75)
+            { id: 51, question: "पेज का ओरिएंटेशन (Portrait या Landscape) बदलने का विकल्प किस टैब में होता है?", options: ["Page Layout / Layout Tab", "Home Tab", "Insert Tab", "References Tab"], answer: 0 },
+            { id: 52, question: "पेज का मार्जिन (Margins) सेट करने का विकल्प कहाँ मिलता है?", options: ["Page Layout / Layout Tab", "Home Tab", "Insert Tab", "Review Tab"], answer: 0 },
+            { id: 53, question: "पेज का आकार (Page Size जैसे A4, Letter) बदलने का विकल्प किस टैब में होता है?", options: ["Page Layout / Layout Tab", "Home Tab", "Insert Tab", "References Tab"], answer: 0 },
+            { id: 54, question: "डॉक्यूमेंट को कॉलम (Columns जैसे One, Two, Three) में विभाजित करने का विकल्प कहाँ होता है?", options: ["Page Layout / Layout Tab", "Home Tab", "Insert Tab", "References Tab"], answer: 0 },
+            { id: 55, question: "लाइन नंबर्स (Line Numbers) जोड़ने का विकल्प किस टैब में होता है?", options: ["Page Layout / Layout Tab", "Home Tab", "Insert Tab", "View Tab"], answer: 0 },
+            { id: 56, question: "हाइफनेशन (Hyphenation) विकल्प किस टैब के अंतर्गत आता है?", options: ["Page Layout / Layout Tab", "Home Tab", "Insert Tab", "References Tab"], answer: 0 },
+            { id: 57, question: "पैराग्राफ इंडेंटेशन (Left/Right Indent) सेट करने का विकल्प किस टैब में होता है?", options: ["Page Layout / Layout Tab", "Home Tab", "Insert Tab", "Review Tab"], answer: 0 },
+            { id: 58, question: "पैराग्राफ के बीच स्पेसिंग (Before / After Spacing) सेट करने का विकल्प कहाँ होता है?", options: ["Page Layout / Layout Tab and Home Tab", "Insert Tab only", "References Tab only", "View Tab only"], answer: 0 },
+            { id: 59, question: "सेक्शन ब्रेक (Section Break जैसे Continuous, Next Page) इंसर्ट करने का विकल्प किस टैब में होता है?", options: ["Page Layout / Layout Tab", "Home Tab", "Insert Tab", "References Tab"], answer: 0 },
+            { id: 60, question: "पेज का बैकग्राउंड कलर या वॉटरमार्क (Watermark) विकल्प (पुराने वर्जनों में) किस टैब में था?", options: ["Page Layout Tab", "Home Tab", "Insert Tab", "References Tab"], answer: 0 },
+            { id: 61, question: "ऑब्जेक्ट्स को आगे या पीछे करने (Bring Forward / Send Backward) का विकल्प किस ग्रुप में होता है?", options: ["Arrange group in Layout Tab", "Page Setup group", "Paragraph group", "Styles group"], answer: 0 },
+            { id: 62, question: "सिलेक्शन पेन (Selection Pane) खोलने का विकल्प किस टैब में होता है?", options: ["Page Layout / Layout Tab", "Home Tab", "Insert Tab", "References Tab"], answer: 0 },
+            { id: 63, question: "ऑब्जेक्ट्स को अलाइन (Align Objects) या ग्रुप (Group) करने का विकल्प कहाँ होता है?", options: ["Page Layout / Layout Tab", "Home Tab", "Insert Tab", "Review Tab"], answer: 0 },
+            { id: 64, question: "ऑब्जेक्ट को रोटेट (Rotate) करने का विकल्प किस टैब में होता है?", options: ["Page Layout / Layout Tab", "Home Tab", "Insert Tab", "References Tab"], answer: 0 },
+            { id: 65, question: "पेज सेटअप डायलॉग बॉक्स (Page Setup Dialog Box) खोलने का शॉर्टकट या विकल्प कहाँ से मिलता है?", options: ["Page Layout Tab launcher arrow", "Home Tab launcher", "Insert Tab launcher", "View Tab"], answer: 0 },
+            { id: 66, question: "पेज बॉर्डर (Page Borders) सेट करने का विकल्प पारंपरिक रूप से किस टैब में मिलता है?", options: ["Design / Page Layout Tab", "Home Tab", "Insert Tab", "References Tab"], answer: 0 },
+            { id: 67, question: "डॉक्यूमेंट की थीम (Themes) बदलने का विकल्प किस टैब में होता है?", options: ["Page Layout / Design Tab", "Home Tab", "Insert Tab", "References Tab"], answer: 0 },
+            { id: 68, question: "पेपर साइज 'Legal' की मानक लंबाई और चौड़ाई कितनी होती है?", options: ["8.5 × 14 इंच", "8.5 × 11 इंच", "8.27 × 11.69 इंच", "5.83 × 8.27 इंच"], answer: 0 },
+            { id: 69, question: "पेपर साइज 'A4' की मानक लंबाई और चौड़ाई कितनी होती है?", options: ["8.27 × 11.69 इंच", "8.5 × 14 इंच", "8.5 × 11 इंच", "11 × 17 इंच"], answer: 0 },
+            { id: 70, question: "डॉक्यूमेंट मार्जिन का डिफ़ॉल्ट मान (Normal Margin) MS Word में कितना होता है?", options: ["1 इंच (सभी तरफ)", "0.5 इंच", "2 इंच", "1.5 इंच"], answer: 0 },
+            { id: 71, question: "लैंडस्केप (Landscape) ओरिएंटेशन में पेज की स्थिति कैसी होती है?", options: ["Horizontal (क्षैतिज)", "Vertical (लंबवत)", "Square (वर्गाकार)", "Circular (वृत्ताकार)"], answer: 0 },
+            { id: 72, question: "पोर्ट्रेट (Portrait) ओरिएंटेशन में पेज की स्थिति कैसी होती है?", options: ["Vertical (लंबवत)", "Horizontal (क्षैतिज)", "Diagonal (विकर्ण)", "Inverted (उल्टा)"], answer: 0 },
+            { id: 73, question: "कॉलम के बीच की दूरी को क्या कहा जाता है जिसे Page Layout से सेट करते हैं?", options: ["Spacing / Gutter / Width", "Border", "Margin", "Indent"], answer: 0 },
+            { id: 74, question: "बाइंडिंग के लिए छोड़े जाने वाले अतिरिक्त स्पेस को क्या कहते हैं?", options: ["Gutter Margin", "Header Margin", "Footer Margin", "Side Indent"], answer: 0 },
+            { id: 75, question: "पेज लेआउट टैब में इनमें से कौन सा ग्रुप नहीं होता है?", options: ["Font Group", "Page Setup Group", "Paragraph Group", "Arrange Group"], answer: 0 },
+
+            // REFERENCES TAB (76 - 100)
+            { id: 76, question: "टेबल ऑफ कंटेंट्स (Table of Contents) इंसर्ट करने का विकल्प किस टैब में होता है?", options: ["References Tab", "Home Tab", "Insert Tab", "Page Layout Tab"], answer: 0 },
+            { id: 77, question: "फुटनोट (Footnote) इंसर्ट करने की शॉर्टकट कुंजी क्या है? / What is the shortcut key to insert a Footnote?", options: ["Ctrl + Alt + F", "Ctrl + F", "Ctrl + Shift + F", "Alt + F"], answer: 0 },
+            { id: 78, question: "एंडनोट (Endnote) इंसर्ट करने की शॉर्टकट कुंजी क्या है? / What is the shortcut key to insert an Endnote?", options: ["Ctrl + Alt + D", "Ctrl + D", "Ctrl + Shift + D", "Alt + E"], answer: 0 },
+            { id: 79, question: "फुटनोट डॉक्यूमेन्ट में कहाँ दिखाई देता है? / Where does a Footnote appear in a document?", options: ["पेज के अंत में (Bottom of the page)", "डॉक्यूमेंट के अंत में (End of the document)", "हेडर में", "फुटर में"], answer: 0 },
+            { id: 80, question: "एंडनोट डॉक्यूमेन्ट में कहाँ दिखाई देता है? / Where does an Endnote appear in a document?", options: ["डॉक्यूमेंट या सेक्शन के अंत में (End of document/section)", "प्रत्येक पेज के नीचे", "शीर्षक के पास", "मार्जिन्स में"], answer: 0 },
+            { id: 81, question: "साइटेशन (Insert Citation) जोड़ने का विकल्प किस टैब में होता है?", options: ["References Tab", "Home Tab", "Insert Tab", "Review Tab"], answer: 0 },
+            { id: 82, question: "ग्रंथसूची (Bibliography / Works Cited) इंसर्ट करने का विकल्प किस टैब में होता है?", options: ["References Tab", "Home Tab", "Insert Tab", "Mailings Tab"], answer: 0 },
+            { id: 83, question: "कैप्शन (Insert Caption) जैसे चित्र या टेबल का नाम जोड़ने का विकल्प किस टैब में होता है?", options: ["References Tab", "Home Tab", "Insert Tab", "View Tab"], answer: 0 },
+            { id: 84, question: "टेबल ऑफ फिगर्स (Table of Figures) इंसर्ट करने का विकल्प किस टैब में होता है?", options: ["References Tab", "Home Tab", "Insert Tab", "Page Layout Tab"], answer: 0 },
+            { id: 85, question: "इंडेक्स (Insert Index) मार्क करने और बनाने का विकल्प किस टैब में होता है?", options: ["References Tab", "Home Tab", "Insert Tab", "Review Tab"], answer: 0 },
+            { id: 86, question: "टेबल ऑफ ऑथॉरिटीज (Table of Authorities) का विकल्प किस टैब में होता है?", options: ["References Tab", "Home Tab", "Insert Tab", "Mailings Tab"], answer: 0 },
+            { id: 87, question: "मैनेज सोर्सेज (Manage Sources) का विकल्प किस ग्रुप में होता है?", options: ["Citations & Bibliography group in References Tab", "Footnotes group", "Index group", "Table of Contents group"], answer: 0 },
+            { id: 88, question: "स्टाइल (Style जैसे APA, MLA, Chicago) का चयन करने का ड्रॉप-डाउन कहाँ होता है?", options: ["References Tab (Citations & Bibliography)", "Home Tab", "Insert Tab", "Review Tab"], answer: 0 },
+            { id: 89, question: "टेबल ऑफ कंटेंट्स को अपडेट (Update Table) करने की शॉर्टकट कुंजी क्या होती है?", options: ["F9", "F5", "F7", "F12"], answer: 0 },
+            { id: 90, question: "अगले फुटनोट पर जाने के लिए 'Next Footnote' कमांड किस टैब में होता है?", options: ["References Tab", "Home Tab", "Insert Tab", "Review Tab"], answer: 0 },
+            { id: 91, question: "डॉक्यूमेंट को सेव (Save) करने की शॉर्टकट कुंजी क्या है?", options: ["Ctrl + S", "Ctrl + Shift + S", "Alt + S", "F12"], answer: 0 },
+            { id: 92, question: "डॉक्यूमेंट को 'Save As' करने की शॉर्टकट कुंजी क्या है?", options: ["F12", "Ctrl + S", "Ctrl + A", "Ctrl + Shift + S"], answer: 0 },
+            { id: 93, question: "नया डॉक्यूमेन्ट (New Document) खोलने की शॉर्टकट कुंजी क्या है?", options: ["Ctrl + N", "Ctrl + O", "Ctrl + D", "Ctrl + M"], answer: 0 },
+            { id: 94, question: "मौजूदा डॉक्यूमेन्ट को खोलने (Open) की शॉर्टकट कुंजी क्या है?", options: ["Ctrl + O", "Ctrl + N", "Ctrl + P", "Ctrl + F"], answer: 0 },
+            { id: 95, question: "डॉक्यूमेंट को प्रिंट (Print) करने की शॉर्टकट कुंजी क्या है?", options: ["Ctrl + P", "Ctrl + Shift + P", "Alt + P", "F2"], answer: 0 },
+            { id: 96, question: "डॉक्यूमेंट को बंद (Close) करने की शॉर्टकट कुंजी क्या है?", options: ["Ctrl + W", "Ctrl + Q", "Ctrl + F4", "Both A and C"], answer: 3 },
+            { id: 97, question: "स्पेलिंग और ग्रामर चेक (Spell Check) करने की शॉर्टकट कुंजी क्या है?", options: ["F7", "Shift + F7", "F1", "F5"], answer: 0 },
+            { id: 98, question: "थिसॉरस (Thesaurus / पर्यायवाची शब्द) देखने की शॉर्टकट कुंजी क्या है?", options: ["Shift + F7", "F7", "Ctrl + F7", "Alt + F7"], answer: 0 },
+            { id: 99, question: "हेल्प (Help) विंडो खोलने की शॉर्टकट कुंजी क्या है?", options: ["F1", "F2", "F3", "F4"], answer: 0 },
+            { id: 100, question: "फाइंड और रिप्लेस डायलॉग बॉक्स में 'Find' टैब खोलने की शॉर्टकट कुंजी क्या है?", options: ["Ctrl + F", "Ctrl + H", "Ctrl + G", "All of the above"], answer: 3 }
+        ];
+
+        let currentUser = null;
+        let activeSessionKey = null;
+        let currentQuestionIndex = 0;
+        let questions = [];
+        let userAnswers = {};
+        let questionStatus = {};
+        let timerInterval = null;
+        let timeRemaining = 3600;
+        let examSubmitted = false;
+
+        const validCredentials = {
+            "admin100": "100",
+            "admin101": "101"
+        };
+
+        function switchScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            const target = document.getElementById(screenId);
+            if (target) {
+                target.classList.add('active');
+            }
+        }
+
+        function togglePasswordVisibility() {
+            const pwdInput = document.getElementById('password');
+            const btn = document.querySelector('.toggle-password');
+            if (pwdInput.type === 'password') {
+                pwdInput.type = 'text';
+                btn.textContent = 'Hide';
+            } else {
+                pwdInput.type = 'password';
+                btn.textContent = 'Show';
+            }
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const user = document.getElementById('username').value.trim();
+            const pass = document.getElementById('password').value.trim();
+            const errBox = document.getElementById('login-error');
+
+            if (validCredentials[user] && validCredentials[user] === pass) {
+                currentUser = user;
+                activeSessionKey = `cbt_wordtabs_session_${currentUser}`;
+                errBox.style.display = 'none';
+                document.getElementById('display-candidate').textContent = currentUser;
+                switchScreen('instructions-screen');
+            } else {
+                errBox.style.display = 'block';
+            }
+        }
+
+        function toggleStartExamBtn() {
+            const checkbox = document.getElementById('accept-instructions');
+            const btn = document.getElementById('start-exam-btn');
+            if (checkbox.checked) {
+                btn.disabled = false;
+                btn.style.opacity = '1';
+                btn.style.cursor = 'pointer';
+            } else {
+                btn.disabled = true;
+                btn.style.opacity = '0.6';
+                btn.style.cursor = 'not-allowed';
+            }
+        }
+
+        function shuffleArray(array) {
+            let arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                let j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function startExamination() {
+            const savedStateStr = localStorage.getItem(activeSessionKey);
+            if (savedStateStr) {
+                try {
+                    const state = JSON.parse(savedStateStr);
+                    questions = state.questions;
+                    userAnswers = state.userAnswers;
+                    questionStatus = state.questionStatus;
+                    currentQuestionIndex = state.currentQuestionIndex;
+                    timeRemaining = state.timeRemaining;
+                } catch(e) {
+                    initNewSession();
+                }
+            } else {
+                initNewSession();
+            }
+
+            switchScreen('exam-screen');
+            initPalette();
+            loadQuestion(currentQuestionIndex);
+            startTimer();
+        }
+
+        function initNewSession() {
+            questions = rawQuestionBank.map(q => {
+                const originalOptionsWithIndex = q.options.map((opt, idx) => ({ text: opt, isCorrect: idx === q.answer }));
+                const shuffledOpts = shuffleArray(originalOptionsWithIndex);
+                const newAnswerIndex = shuffledOpts.findIndex(o => o.isCorrect);
+                return {
+                    id: q.id,
+                    question: q.question,
+                    options: shuffledOpts.map(o => o.text),
+                    answer: newAnswerIndex
+                };
+            });
+            questions = shuffleArray(questions);
+
+            userAnswers = {};
+            questionStatus = {};
+            questions.forEach(q => {
+                questionStatus[q.id] = 'not-visited';
+            });
+            currentQuestionIndex = 0;
+            timeRemaining = 3600;
+            saveSessionState();
+        }
+
+        function saveSessionState() {
+            if (!activeSessionKey || examSubmitted) return;
+            const state = {
+                questions,
+                userAnswers,
+                questionStatus,
+                currentQuestionIndex,
+                timeRemaining
+            };
+            localStorage.setItem(activeSessionKey, JSON.stringify(state));
+        }
+
+        let timerStartTime = null;
+        let initialDuration = 3600;
+
+        function startTimer() {
+            if (timerInterval) clearInterval(timerInterval);
+
+            const sessionTimerKey = `${activeSessionKey}_timer_start`;
+            const storedStartTime = localStorage.getItem(sessionTimerKey);
+            const savedStateStr = localStorage.getItem(activeSessionKey);
+            let savedTime = 3600;
+            if(savedStateStr) {
+                try {
+                    savedTime = JSON.parse(savedStateStr).timeRemaining;
+                } catch(e) {}
+            }
+
+            if (!storedStartTime) {
+                timerStartTime = Date.now();
+                initialDuration = savedTime;
+                localStorage.setItem(sessionTimerKey, timerStartTime);
+                localStorage.setItem(`${activeSessionKey}_duration`, initialDuration);
+            } else {
+                timerStartTime = parseInt(storedStartTime, 10);
+                initialDuration = parseInt(localStorage.getItem(`${activeSessionKey}_duration`) || '3600', 10);
+            }
+
+            updateTimerDisplay();
+
+            timerInterval = setInterval(() => {
+                const elapsedSeconds = Math.floor((Date.now() - timerStartTime) / 1000);
+                timeRemaining = initialDuration - elapsedSeconds;
+
+                if (timeRemaining <= 0) {
+                    timeRemaining = 0;
+                    updateTimerDisplay();
+                    clearInterval(timerInterval);
+                    autoSubmitExamination();
+                    return;
+                }
+                updateTimerDisplay();
+                saveSessionState();
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const mins = Math.floor(timeRemaining / 60);
+            const secs = timeRemaining % 60;
+            const displayStr = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+            const timerEl = document.getElementById('timer-display');
+            if (timerEl) {
+                timerEl.textContent = displayStr;
+            }
+        }
+
+        function loadQuestion(index) {
+            currentQuestionIndex = index;
+            const q = questions[currentQuestionIndex];
+            
+            document.getElementById('question-number-tag').textContent = `Question ${currentQuestionIndex + 1} of 100`;
+            document.getElementById('question-title-text').textContent = q.question;
+
+            if (questionStatus[q.id] === 'not-visited') {
+                questionStatus[q.id] = 'visited-not-answered';
+            }
+
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+
+            q.options.forEach((optText, optIdx) => {
+                const isSelected = userAnswers[q.id] === optIdx;
+                const optDiv = document.createElement('div');
+                optDiv.className = `option-item ${isSelected ? 'selected' : ''}`;
+
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.name = 'q_opt';
+                input.id = `opt_${optIdx}`;
+                if (isSelected) input.checked = true;
+                input.onchange = () => selectOption(optIdx);
+
+                const label = document.createElement('label');
+                label.htmlFor = `opt_${optIdx}`;
+                label.style.cursor = 'pointer';
+                label.style.flex = '1';
+                label.textContent = optText;
+
+                optDiv.appendChild(input);
+                optDiv.appendChild(label);
+
+                optDiv.onclick = (e) => {
+                    if (e.target.tagName !== 'INPUT') {
+                        input.checked = true;
+                    }
+                    selectOption(optIdx);
+                };
+
+                optionsContainer.appendChild(optDiv);
+            });
+
+            updatePaletteUI();
+            saveSessionState();
+        }
+
+        function selectOption(optIdx) {
+            const q = questions[currentQuestionIndex];
+            userAnswers[q.id] = optIdx;
+            
+            if (questionStatus[q.id] === 'marked') {
+                questionStatus[q.id] = 'answered-marked';
+            } else {
+                questionStatus[q.id] = 'answered';
+            }
+            updatePaletteUI();
+            
+            document.querySelectorAll('.option-item').forEach((el, idx) => {
+                if (idx === optIdx) el.classList.add('selected');
+                else el.classList.remove('selected');
+            });
+            saveSessionState();
+        }
+
+        function clearResponse() {
+            const q = questions[currentQuestionIndex];
+            delete userAnswers[q.id];
+            if (questionStatus[q.id] === 'answered-marked') {
+                questionStatus[q.id] = 'marked';
+            } else {
+                questionStatus[q.id] = 'visited-not-answered';
+            }
+            loadQuestion(currentQuestionIndex);
+        }
+
+        function saveAndNext() {
+            if (currentQuestionIndex < questions.length - 1) {
+                loadQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        function markForReviewAndNext() {
+            const q = questions[currentQuestionIndex];
+            if (userAnswers[q.id] !== undefined) {
+                questionStatus[q.id] = 'answered-marked';
+            } else {
+                questionStatus[q.id] = 'marked';
+            }
+            if (currentQuestionIndex < questions.length - 1) {
+                loadQuestion(currentQuestionIndex + 1);
+            } else {
+                updatePaletteUI();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                loadQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        function jumpToQuestion(index) {
+            loadQuestion(index);
+        }
+
+        function initPalette() {
+            const grid = document.getElementById('palette-grid');
+            grid.innerHTML = '';
+            questions.forEach((q, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'palette-btn not-visited';
+                btn.id = `pal_btn_${idx}`;
+                btn.textContent = idx + 1;
+                btn.onclick = () => jumpToQuestion(idx);
+                grid.appendChild(btn);
+            });
+            updatePaletteUI();
+        }
+
+        function updatePaletteUI() {
+            questions.forEach((q, idx) => {
+                const btn = document.getElementById(`pal_btn_${idx}`);
+                if (!btn) return;
+                
+                const status = questionStatus[q.id];
+                btn.className = 'palette-btn';
+                
+                if (idx === currentQuestionIndex) {
+                    btn.classList.add('current');
+                }
+
+                if (status === 'not-visited') btn.classList.add('not-visited');
+                else if (status === 'visited-not-answered') btn.classList.add('visited-not-answered');
+                else if (status === 'answered') btn.classList.add('answered');
+                else if (status === 'marked') btn.classList.add('marked');
+                else if (status === 'answered-marked') btn.classList.add('answered-marked');
+            });
+        }
+
+        function openSubmitModal() {
+            if (examSubmitted) return;
+            
+            let answeredCount = 0;
+            let notAnsweredCount = 0;
+            let markedCount = 0;
+            let notVisitedCount = 0;
+
+            questions.forEach(q => {
+                const s = questionStatus[q.id];
+                if (s === 'answered' || s === 'answered-marked') answeredCount++;
+                if (s === 'visited-not-answered') notAnsweredCount++;
+                if (s === 'marked') markedCount++;
+                if (s === 'not-visited') notVisitedCount++;
+            });
+
+            const statsBox = document.getElementById('modal-stats-box');
+            statsBox.innerHTML = `
+                <div><span>Answered:</span> <strong>${answeredCount}</strong></div>
+                <div><span>Not Answered:</span> <strong>${notAnsweredCount}</strong></div>
+                <div><span>Marked for Review:</span> <strong>${markedCount}</strong></div>
+                <div><span>Not Visited:</span> <strong>${notVisitedCount}</strong></div>
+                <div><span>Total Questions:</span> <strong>100</strong></div>
+            `;
+
+            document.getElementById('submit-modal').style.display = 'flex';
+        }
+
+        function closeSubmitModal() {
+            document.getElementById('submit-modal').style.display = 'none';
+        }
+
+        function confirmFinalSubmission() {
+            if (examSubmitted) return;
+            examSubmitted = true;
+            closeSubmitModal();
+            if (timerInterval) clearInterval(timerInterval);
+
+            let correct = 0;
+            let attempted = 0;
+
+            questions.forEach(q => {
+                if (userAnswers[q.id] !== undefined) {
+                    attempted++;
+                    if (userAnswers[q.id] === q.answer) {
+                        correct++;
+                    }
+                }
+            });
+
+            const incorrect = attempted - correct;
+            const unattempted = 100 - attempted;
+            const marksObtained = correct;
+            const percentage = correct;
+
+            document.getElementById('score-val').textContent = marksObtained;
+            document.getElementById('res-percentage').textContent = `${percentage}%`;
+            document.getElementById('res-attempted').textContent = attempted;
+            document.getElementById('res-correct').textContent = correct;
+            document.getElementById('res-incorrect').textContent = incorrect;
+            document.getElementById('res-unattempted').textContent = unattempted;
+
+            const remarkEl = document.getElementById('performance-remark');
+            if (marksObtained >= 85) {
+                remarkEl.textContent = "Outstanding performance! Expert mastery of MS Word tabs and shortcut keys.";
+            } else if (marksObtained >= 60) {
+                remarkEl.textContent = "Good performance! Solid technical knowledge with minor areas for review.";
+            } else if (marksObtained >= 40) {
+                remarkEl.textContent = "Fair performance. Review ribbon tabs and formatting shortcut keys.";
+            } else {
+                remarkEl.textContent = "Needs improvement. Thorough study of MS Word features recommended.";
+            }
+
+            localStorage.removeItem(activeSessionKey);
+            localStorage.removeItem(`${activeSessionKey}_timer_start`);
+            localStorage.removeItem(`${activeSessionKey}_duration`);
+
+            switchScreen('result-screen');
+        }
+
+        function autoSubmitExamination() {
+            if (examSubmitted) return;
+            alert("Examination time has expired. Your test will be submitted automatically.");
+            confirmFinalSubmission();
+        }
+
+        function restartPortal() {
+            localStorage.clear();
+            window.location.reload();
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {});
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+    </script>
+</body>
+</html>
